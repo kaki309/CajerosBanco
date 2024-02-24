@@ -9,6 +9,8 @@ import cola.Base;
 /*/** 
  * Clase Cliente para la creación de los clientes a asignar a las colas
  * @author andres_gab.fernandez@uao.edu.co Andrés Fernández Código 2225751
+* @author XXXXXXXXX@uao.edu.co XXX XXX Código XXXXXXX
+* @author XXXXXXXXX@uao.edu.co XXX XXX Código XXXXXXX
  * @date 24 Febrero 2024
  * @version 1.0 
  */ 
