@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="797.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cajerossupermercado.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="797.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cajerosbanco.FXMLDocumentController">
    <children>
       <Label fx:id="label1" layoutX="61.0" layoutY="325.0" text="Clientes" textAlignment="CENTER">
          <font>
@@ -58,5 +58,16 @@
       <Circle fill="DODGERBLUE" layoutX="468.0" layoutY="151.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fill="DODGERBLUE" layoutX="616.0" layoutY="151.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fill="DODGERBLUE" layoutX="765.0" layoutY="151.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
+      <MenuBar layoutX="375.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="Programa">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#iniciar" text="Iniciar" />
+                  <MenuItem mnemonicParsing="false" onAction="#finalizar" text="Finalizar" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <TextArea fx:id="txtArea" layoutX="45.0" layoutY="374.0" prefHeight="393.0" prefWidth="810.0" />
    </children>
 </AnchorPane>

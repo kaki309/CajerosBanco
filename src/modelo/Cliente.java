@@ -16,13 +16,13 @@ import cola.Base;
  */
 public class Cliente extends Base {
 
-    private String edad;
-    private double tiempoAtencion;
+    private int edad;
+    private int tiempoAtencion;
 
     public Cliente() {
     }
 
-    public Cliente(String edad, double tiempoAtencion) {
+    public Cliente(int edad, int tiempoAtencion) {
         this.edad = edad;
         this.tiempoAtencion = tiempoAtencion;
     }
@@ -33,7 +33,7 @@ public class Cliente extends Base {
      *
      * @return el valor de tiempoAtencion
      */
-    public double getTiempoAtencion() {
+    public int getTiempoAtencion() {
         return tiempoAtencion;
     }
 
@@ -42,7 +42,7 @@ public class Cliente extends Base {
      *
      * @param tiempoAtencion nuevo valor de tiempoAtencion
      */
-    public void setTiempoAtencion(double tiempoAtencion) {
+    public void setTiempoAtencion(int tiempoAtencion) {
         this.tiempoAtencion = tiempoAtencion;
     }
 
@@ -51,7 +51,7 @@ public class Cliente extends Base {
      *
      * @return el valor de edad
      */
-    public String getEdad() {
+    public int getEdad() {
         return edad;
     }
 
@@ -60,7 +60,7 @@ public class Cliente extends Base {
      *
      * @param edad nuevo valor de edad
      */
-    public void setEdad(String edad) {
+    public void setEdad(int edad) {
         this.edad = edad;
     }
 
