@@ -72,13 +72,13 @@ public class Cliente extends Base {
      */
     @Override
     public String toString() {
-        return "Cliente{" + "edad=" + edad + ", tiempoAtencion=" + tiempoAtencion + '}';
+        return "Edad: " + edad + ", tiempo: " + tiempoAtencion + "seg.";
     }
 
     /**
      * Implementa el método abstracto de Base
      *
-     * @param edad nuevo valor de edad
+     * @return el mismo objeto de Cliente
      */
     @Override
     public Base copy() {

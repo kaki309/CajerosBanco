@@ -11,13 +11,11 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 
 /*/** 
  * Clase FXML Controller para manejar la interfaz gráfica
@@ -29,10 +27,15 @@ import javafx.scene.control.TextArea;
  */
 public class FXMLDocumentController implements Initializable {
 
-    //Montar todos los elementos necesarios con @FXML
+    //Variables de interfaz gráfica
     @FXML
-    private TextArea txtArea;
+    private TextArea txtColaNatural;
+    @FXML
+    private TextArea txtColaClientes;
+    @FXML
+    private TextArea txtColaPreferencial;
 
+    //Variables de funcionamiento
     Cola<Cliente> colaNatural;
     Cola<Cliente> colaClientes;
     Cola<Cliente> colaPreferencial;
@@ -66,23 +69,17 @@ public class FXMLDocumentController implements Initializable {
                 //Encolar en Cola Natural
                 if (asignarCola >= 1 && asignarCola <= 10) {
                     colaNatural.encolar(objCliente);
-                    txtArea.setText(
-                            "Cola asignada: Natural" + "\n"
-                            + objCliente.toString());
+                    txtColaNatural.setText(mostrar(colaNatural));
                 }
                 //Encolar en Cola para Clientes
                 if (asignarCola >= 11 && asignarCola <= 20) {
                     colaClientes.encolar(objCliente);
-                    txtArea.setText(
-                            "Cola asignada: Clientes" + "\n"
-                            + objCliente.toString());
+                    txtColaClientes.setText(mostrar(colaClientes));
                 }
                 //Encolar en Cola Preferencial
                 if (asignarCola >= 21 && asignarCola <= 30) {
                     colaPreferencial.encolar(objCliente);
-                    txtArea.setText(
-                            "Cola asignada: Preferencial" + "\n"
-                            + objCliente.toString());
+                    txtColaPreferencial.setText(mostrar(colaPreferencial));
                 }
 
                 // Programa la próxima ejecución con un periodo aleatorio
@@ -93,6 +90,21 @@ public class FXMLDocumentController implements Initializable {
         futureTask = executor.schedule(task, 0, TimeUnit.SECONDS);
     }
 
+    public String mostrar(Cola<Cliente> cola) {
+
+        String linea = cola.toString();
+        String[] info;
+        String cadena = "";
+
+        info = linea.split("seg.");
+
+        for (int i = 0; i < info.length; i++) {
+
+            cadena += info[i] + "\n";
+        }
+        return cadena;
+    }
+
     @FXML
     public void finalizar(ActionEvent event) {
         if (futureTask != null) {
@@ -100,7 +112,9 @@ public class FXMLDocumentController implements Initializable {
         }
         if (executor != null) {
             executor.shutdown();
-            txtArea.setText("Programa Finalizado");
+            txtColaNatural.setText("Programa Finalizado");
+            txtColaClientes.setText("Programa Finalizado");
+            txtColaPreferencial.setText("Programa Finalizado");
         }
     }
 
@@ -111,6 +125,7 @@ public class FXMLDocumentController implements Initializable {
         colaClientes = new Cola<>();
         colaPreferencial = new Cola<>();
         random = new Random();
+
     }
 
 }

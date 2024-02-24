@@ -10,14 +10,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="797.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cajerosbanco.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="797.0" prefWidth="1047.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cajerosbanco.FXMLDocumentController">
    <children>
-      <Label fx:id="label1" layoutX="61.0" layoutY="325.0" text="Clientes" textAlignment="CENTER">
+      <Label fx:id="label1" layoutX="50.0" layoutY="325.0" text="Cola Natural" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="756.0" layoutY="332.0" text="Clientes" textAlignment="CENTER">
+      <Label layoutX="794.0" layoutY="325.0" text="Clientes Atendidos" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -68,6 +68,19 @@
             </Menu>
          </menus>
       </MenuBar>
-      <TextArea fx:id="txtArea" layoutX="45.0" layoutY="374.0" prefHeight="393.0" prefWidth="810.0" />
+      <TextArea fx:id="txtColaNatural" layoutX="14.0" layoutY="381.0" prefHeight="393.0" prefWidth="213.0" />
+      <TextArea fx:id="txtColaClientes" layoutX="263.0" layoutY="381.0" prefHeight="393.0" prefWidth="213.0" />
+      <TextArea fx:id="txtColaPreferencial" layoutX="509.0" layoutY="381.0" prefHeight="393.0" prefWidth="213.0" />
+      <TextArea fx:id="txtClientesAtendidos" layoutX="793.0" layoutY="381.0" prefHeight="393.0" prefWidth="213.0" />
+      <Label fx:id="label11" layoutX="302.0" layoutY="325.0" text="Cola Clientes" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="label111" layoutX="520.0" layoutY="325.0" text="Cola Preferencial" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
