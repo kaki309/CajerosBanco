@@ -22,11 +22,13 @@ import javafx.scene.shape.Circle;
 public class FXMLDocumentController implements Initializable {
 
     @FXML
-    private Circle cajero1;
+    private Label label1;
 
     Cola<Cliente> colaNatural;
     Cola<Cliente> colaClientes;
     Cola<Cliente> colaPreferencial;
+    
+    LinkedList<Cliente> clientesAtendidos;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

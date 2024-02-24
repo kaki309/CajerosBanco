@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.chart.*?>
@@ -9,8 +10,53 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="587.0" prefWidth="626.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cajerossupermercado.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="797.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cajerossupermercado.FXMLDocumentController">
    <children>
-      <Circle fx:id="cajero1" fill="DODGERBLUE" layoutX="157.0" layoutY="173.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label fx:id="label1" layoutX="61.0" layoutY="325.0" text="Clientes" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="756.0" layoutY="332.0" text="Clientes" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="61.0" layoutY="47.0" text="Cajero 1" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="171.0" layoutY="47.0" text="Cajero 2" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="296.0" layoutY="47.0" text="Cajero 3" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="431.0" layoutY="47.0" text="Cajero 4" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="579.0" layoutY="47.0" text="Cajero 5" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="728.0" layoutY="47.0" text="Cajero 6" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Circle fill="DODGERBLUE" layoutX="98.0" layoutY="151.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="208.0" layoutY="151.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="333.0" layoutY="151.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="468.0" layoutY="151.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="616.0" layoutY="151.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="765.0" layoutY="151.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
    </children>
 </AnchorPane>
