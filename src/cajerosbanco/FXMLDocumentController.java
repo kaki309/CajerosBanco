@@ -31,7 +31,7 @@ public class FXMLDocumentController implements Initializable {
     //Montar todos los elementos necesarios con @FXML
     @FXML
     private TextArea txtArea;
-    
+
     Cola<Cliente> colaNatural;
     Cola<Cliente> colaClientes;
     Cola<Cliente> colaPreferencial;
@@ -40,16 +40,28 @@ public class FXMLDocumentController implements Initializable {
     TimerTask task;
     Timer timer;
     Random random;
+    boolean programaActivo;
 
     @FXML
     public void iniciar(ActionEvent event) {
-        txtArea.setText("");
-        task.run();
+        do {
+            timer.schedule(task, 500, establecerDelay());
+        } while (programaActivo == true);
     }
 
+    public int establecerDelay() {
+
+        int delayMinimo = 3000; // Valor mínimo del delay en ms
+        int delayMaximo = 10000; // Valor máximo del delay en ms
+        int delay = random.nextInt(delayMaximo - delayMinimo + 1) + delayMinimo;
+        programaActivo = true;
+        return delay;
+    }
+    
     @FXML
     public void finalizar(ActionEvent event) {
-
+        programaActivo = false;
+        txtArea.setText("Programa Finalizado");
     }
 
     @Override
@@ -58,6 +70,8 @@ public class FXMLDocumentController implements Initializable {
         colaNatural = new Cola<>();
         colaClientes = new Cola<>();
         colaPreferencial = new Cola<>();
+
+        programaActivo = true;
 
         random = new Random();
         timer = new Timer();
@@ -78,20 +92,29 @@ public class FXMLDocumentController implements Initializable {
                 Cliente objCliente = new Cliente(edadAleatoria, tiempoAleatorio);
 
                 int asignarCola = random.nextInt(colaMax - colaMin + 1) + colaMin;
-                if (asignarCola>=1 && asignarCola<=10){
+                //Encolar en Cola Natural
+                if (asignarCola >= 1 && asignarCola <= 10) {
                     colaNatural.encolar(objCliente);
-                    txtArea.setText("Cola asignada: Natural" + "\n"
-                    + "Cliente: " + objCliente.toString());
+                    txtArea.setText(
+                            "Cola asignada: Natural" + "\n"
+                            + objCliente.toString()
+                    );
                 }
-                if (asignarCola>=11 && asignarCola<=20) {
+                //Encolar en Cola para Clientes
+                if (asignarCola >= 11 && asignarCola <= 20) {
                     colaClientes.encolar(objCliente);
-                    txtArea.setText("Cola asignada: Clientes" + "\n"
-                    + "Cliente: " + objCliente.toString());
+                    txtArea.setText(
+                            "Cola asignada: Clientes" + "\n"
+                            + objCliente.toString()
+                    );
                 }
-                if (asignarCola>=21 && asignarCola<=30) {
+                //Encolar en Cola Preferencial
+                if (asignarCola >= 21 && asignarCola <= 30) {
                     colaPreferencial.encolar(objCliente);
-                    txtArea.setText("Cola asignada: Preferencial" + "\n"
-                    + "Cliente: " + objCliente.toString());
+                    txtArea.setText(
+                            "Cola asignada: Preferencial" + "\n"
+                            + objCliente.toString()
+                    );
                 }
             }
         };//Fin TimerTask
