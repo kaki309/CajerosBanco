@@ -22,43 +22,43 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="61.0" layoutY="47.0" text="Cajero 1" textAlignment="CENTER">
+      <Label layoutX="118.0" layoutY="90.0" text="Cajero 1" textAlignment="CENTER">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="171.0" layoutY="47.0" text="Cajero 2" textAlignment="CENTER">
+      <Label layoutX="228.0" layoutY="90.0" text="Cajero 2" textAlignment="CENTER">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="296.0" layoutY="47.0" text="Cajero 3" textAlignment="CENTER">
+      <Label layoutX="353.0" layoutY="90.0" text="Cajero 3" textAlignment="CENTER">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="431.0" layoutY="47.0" text="Cajero 4" textAlignment="CENTER">
+      <Label layoutX="488.0" layoutY="90.0" text="Cajero 4" textAlignment="CENTER">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="579.0" layoutY="47.0" text="Cajero 5" textAlignment="CENTER">
+      <Label layoutX="636.0" layoutY="90.0" text="Cajero 5" textAlignment="CENTER">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="728.0" layoutY="47.0" text="Cajero 6" textAlignment="CENTER">
+      <Label layoutX="785.0" layoutY="90.0" text="Cajero 6" textAlignment="CENTER">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Circle fill="DODGERBLUE" layoutX="98.0" layoutY="151.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="DODGERBLUE" layoutX="208.0" layoutY="151.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="DODGERBLUE" layoutX="333.0" layoutY="151.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="DODGERBLUE" layoutX="468.0" layoutY="151.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="DODGERBLUE" layoutX="616.0" layoutY="151.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="DODGERBLUE" layoutX="765.0" layoutY="151.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
-      <MenuBar layoutX="375.0">
+      <Circle fill="DODGERBLUE" layoutX="155.0" layoutY="194.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="265.0" layoutY="194.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="390.0" layoutY="194.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="525.0" layoutY="194.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="673.0" layoutY="194.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="822.0" layoutY="194.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
+      <MenuBar layoutX="453.0">
          <menus>
             <Menu mnemonicParsing="false" text="Programa">
                <items>
@@ -68,10 +68,22 @@
             </Menu>
          </menus>
       </MenuBar>
-      <TextArea fx:id="txtColaNatural" layoutX="14.0" layoutY="381.0" prefHeight="393.0" prefWidth="213.0" />
-      <TextArea fx:id="txtColaClientes" layoutX="263.0" layoutY="381.0" prefHeight="393.0" prefWidth="213.0" />
-      <TextArea fx:id="txtColaPreferencial" layoutX="509.0" layoutY="381.0" prefHeight="393.0" prefWidth="213.0" />
-      <TextArea fx:id="txtClientesAtendidos" layoutX="793.0" layoutY="381.0" prefHeight="393.0" prefWidth="213.0" />
+      <TextArea fx:id="txtColaNatural" editable="false" layoutX="14.0" layoutY="381.0" prefHeight="393.0" prefWidth="213.0">
+         <font>
+            <Font size="20.0" />
+         </font></TextArea>
+      <TextArea fx:id="txtColaClientes" editable="false" layoutX="263.0" layoutY="381.0" prefHeight="393.0" prefWidth="213.0">
+         <font>
+            <Font size="20.0" />
+         </font></TextArea>
+      <TextArea fx:id="txtColaPreferencial" editable="false" layoutX="509.0" layoutY="381.0" prefHeight="393.0" prefWidth="213.0">
+         <font>
+            <Font size="20.0" />
+         </font></TextArea>
+      <TextArea fx:id="txtClientesAtendidos" editable="false" layoutX="793.0" layoutY="381.0" prefHeight="393.0" prefWidth="213.0">
+         <font>
+            <Font size="20.0" />
+         </font></TextArea>
       <Label fx:id="label11" layoutX="302.0" layoutY="325.0" text="Cola Clientes" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="24.0" />
