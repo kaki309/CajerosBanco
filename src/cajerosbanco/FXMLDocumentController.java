@@ -13,6 +13,9 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,52 +43,24 @@ public class FXMLDocumentController implements Initializable {
     TimerTask task;
     Timer timer;
     Random random;
-    boolean programaActivo;
+
+    private ScheduledExecutorService executor;
 
     @FXML
     public void iniciar(ActionEvent event) {
-        do {
-            timer.schedule(task, 500, establecerDelay());
-        } while (programaActivo == true);
-    }
 
-    public int establecerDelay() {
+        executor = Executors.newSingleThreadScheduledExecutor();
 
-        int delayMinimo = 3000; // Valor mínimo del delay en ms
-        int delayMaximo = 10000; // Valor máximo del delay en ms
-        int delay = random.nextInt(delayMaximo - delayMinimo + 1) + delayMinimo;
-        programaActivo = true;
-        return delay;
-    }
-    
-    @FXML
-    public void finalizar(ActionEvent event) {
-        programaActivo = false;
-        txtArea.setText("Programa Finalizado");
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-        colaNatural = new Cola<>();
-        colaClientes = new Cola<>();
-        colaPreferencial = new Cola<>();
-
-        programaActivo = true;
-
-        random = new Random();
-        timer = new Timer();
-        task = new TimerTask() {
-
-            //Crear cliente
-            int edadMinima = 14; // Valor mínimo de la edad
-            int edadMaxima = 99; // Valor máximo de la edad
-            int tiempoMinimo = 3; // Valor mínimo del tiempo para atender
-            int tiempoMaximo = 20; // Valor máximo del tiempo para atender
-            int colaMin = 1;
-            int colaMax = 30;
-
+        Runnable task = new Runnable() {
+            @Override
             public void run() {
+                //Crear cliente
+                int edadMinima = 14; // Valor mínimo de la edad
+                int edadMaxima = 99; // Valor máximo de la edad
+                int tiempoMinimo = 3; // Valor mínimo del tiempo para atender
+                int tiempoMaximo = 20; // Valor máximo del tiempo para atender
+                int colaMin = 1;
+                int colaMax = 30;
 
                 int edadAleatoria = random.nextInt(edadMaxima - edadMinima + 1) + edadMinima;
                 int tiempoAleatorio = random.nextInt(tiempoMaximo - tiempoMinimo + 1) + tiempoMinimo;
@@ -97,27 +72,48 @@ public class FXMLDocumentController implements Initializable {
                     colaNatural.encolar(objCliente);
                     txtArea.setText(
                             "Cola asignada: Natural" + "\n"
-                            + objCliente.toString()
-                    );
+                            + objCliente.toString());
                 }
                 //Encolar en Cola para Clientes
                 if (asignarCola >= 11 && asignarCola <= 20) {
                     colaClientes.encolar(objCliente);
                     txtArea.setText(
                             "Cola asignada: Clientes" + "\n"
-                            + objCliente.toString()
-                    );
+                            + objCliente.toString());
                 }
                 //Encolar en Cola Preferencial
                 if (asignarCola >= 21 && asignarCola <= 30) {
                     colaPreferencial.encolar(objCliente);
                     txtArea.setText(
                             "Cola asignada: Preferencial" + "\n"
-                            + objCliente.toString()
-                    );
+                            + objCliente.toString());
                 }
+
+                // Programa la próxima ejecución con un periodo aleatorio
+                int delay = 1 + new java.util.Random().nextInt(15); // Delay entre 1 y 10 segundos
+                executor.schedule(this, delay, TimeUnit.SECONDS);
             }
-        };//Fin TimerTask
+        };
+
+        executor.schedule(task, 0, TimeUnit.SECONDS);
+
+    }
+
+    @FXML
+    public void finalizar(ActionEvent event) {
+        if (executor != null) {
+            executor.shutdown();
+            txtArea.setText("Programa Finalizado");
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+        colaNatural = new Cola<>();
+        colaClientes = new Cola<>();
+        colaPreferencial = new Cola<>();
+        random = new Random();
     }
 
 }
