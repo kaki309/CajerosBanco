@@ -13,9 +13,7 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,14 +36,12 @@ public class FXMLDocumentController implements Initializable {
     Cola<Cliente> colaNatural;
     Cola<Cliente> colaClientes;
     Cola<Cliente> colaPreferencial;
-
-    LinkedList<Cliente> clientesAtendidos;
-    TimerTask task;
-    Timer timer;
     Random random;
-
+    LinkedList<Cliente> clientesAtendidos;
     private ScheduledExecutorService executor;
+    private Future<?> futureTask;
 
+    //METODOS
     @FXML
     public void iniciar(ActionEvent event) {
 
@@ -91,16 +87,17 @@ public class FXMLDocumentController implements Initializable {
 
                 // Programa la próxima ejecución con un periodo aleatorio
                 int delay = 3 + new java.util.Random().nextInt(13); // Delay entre 1 y 10 segundos
-                executor.schedule(this, delay, TimeUnit.SECONDS);
+                futureTask = executor.schedule(this, delay, TimeUnit.SECONDS);
             }
         };
-
-        executor.schedule(task, 0, TimeUnit.SECONDS);
-
+        futureTask = executor.schedule(task, 0, TimeUnit.SECONDS);
     }
 
     @FXML
     public void finalizar(ActionEvent event) {
+        if (futureTask != null) {
+            futureTask.cancel(true);
+        }
         if (executor != null) {
             executor.shutdown();
             txtArea.setText("Programa Finalizado");
