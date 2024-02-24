@@ -8,12 +8,12 @@ import cola.Base;
 
 /*/** 
  * Clase Cliente para la creación de los clientes a asignar a las colas
- * @author andres_gab.fernandez@uao.edu.co Andrés Fernández Código 2225751
-* @author XXXXXXXXX@uao.edu.co XXX XXX Código XXXXXXX
-* @author XXXXXXXXX@uao.edu.co XXX XXX Código XXXXXXX
+ * @author andres_gab.fernandez@uao.edu.co Andrés Gabriel Fernández Código 2225751
+ * @author valeria.garcia_perez@uao.edu.co Valeria García Pérez Código 2225662
+ * @author juan_p.gutierrez@uao.edu.co Juan Pablo Gutierrez Código 2221673
  * @date 24 Febrero 2024
  * @version 1.0 
- */ 
+ */
 public class Cliente extends Base {
 
     private String edad;
@@ -26,11 +26,11 @@ public class Cliente extends Base {
         this.edad = edad;
         this.tiempoAtencion = tiempoAtencion;
     }
-    
+
     /**
      * Toma el valor de tiempoAtencion
      *
-     * 
+     *
      * @return el valor de tiempoAtencion
      */
     public double getTiempoAtencion() {
@@ -64,9 +64,9 @@ public class Cliente extends Base {
         this.edad = edad;
     }
 
-    
     /**
-     * Muestra en formato de cadena la información del objeto de la clase Cliente
+     * Muestra en formato de cadena la información del objeto de la clase
+     * Cliente
      *
      * @return la información del objeto de la clase Cliente como una cadena
      */
@@ -74,9 +74,9 @@ public class Cliente extends Base {
     public String toString() {
         return "Cliente{" + "edad=" + edad + ", tiempoAtencion=" + tiempoAtencion + '}';
     }
-    
+
     /**
-     *Implementa el método abstracto de Base
+     * Implementa el método abstracto de Base
      *
      * @param edad nuevo valor de edad
      */
