@@ -90,7 +90,7 @@ public class FXMLDocumentController implements Initializable {
                 }
 
                 // Programa la próxima ejecución con un periodo aleatorio
-                int delay = 1 + new java.util.Random().nextInt(15); // Delay entre 1 y 10 segundos
+                int delay = 3 + new java.util.Random().nextInt(13); // Delay entre 1 y 10 segundos
                 executor.schedule(this, delay, TimeUnit.SECONDS);
             }
         };
