@@ -52,12 +52,12 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Circle fill="DODGERBLUE" layoutX="155.0" layoutY="194.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="DODGERBLUE" layoutX="265.0" layoutY="194.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="DODGERBLUE" layoutX="390.0" layoutY="194.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="DODGERBLUE" layoutX="525.0" layoutY="194.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="DODGERBLUE" layoutX="673.0" layoutY="194.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="DODGERBLUE" layoutX="822.0" layoutY="194.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="idCircle1" fill="DODGERBLUE" layoutX="155.0" layoutY="194.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" />
+      <Circle fill="DODGERBLUE" layoutX="265.0" layoutY="194.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" />
+      <Circle fill="DODGERBLUE" layoutX="390.0" layoutY="194.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" />
+      <Circle fill="DODGERBLUE" layoutX="525.0" layoutY="194.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" />
+      <Circle fill="DODGERBLUE" layoutX="673.0" layoutY="194.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" />
+      <Circle fill="DODGERBLUE" layoutX="822.0" layoutY="194.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" />
       <MenuBar layoutX="453.0">
          <menus>
             <Menu mnemonicParsing="false" text="Programa">
@@ -94,5 +94,6 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
+      <Button layoutX="120.0" layoutY="264.0" mnemonicParsing="false" onAction="#activar" text="Button" />
    </children>
 </AnchorPane>
