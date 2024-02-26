@@ -18,6 +18,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
+import javax.swing.JOptionPane;
 import modelo.Cajero;
 
 /*/** 
@@ -38,6 +40,10 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextArea txtColaPreferencial;
     @FXML
+    private TextArea txtClientesAtendidos;
+    @FXML
+    private Text textCajero1;
+    @FXML
     private Circle idCircle1;
 
     //Variables de funcionamiento
@@ -54,9 +60,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     public void iniciar(ActionEvent event) {
         crearClientes();
-
-        //PARA DEMOSTRAR QUE LOS CAJEROS ESTÁN OCUPADOS, PONER COLOR EN ROJO 
-        //SI ESTÁN LIBRES DEBERÍAN SER VERDES
         
     }
 
@@ -106,14 +109,14 @@ public class FXMLDocumentController implements Initializable {
     }
     
     public void activar(){
-    
-        cajero1.ejecutar(colaNatural, clientesAtendidos, idCircle1);
+        
+        cajero1.run(colaNatural, clientesAtendidos, idCircle1, textCajero1);
     
     }
     
     
     public String mostrar(Cola<Cliente> cola) {
-
+        
         String linea = cola.toString();
         String[] info;
         String cadena = "";
@@ -148,7 +151,7 @@ public class FXMLDocumentController implements Initializable {
         colaPreferencial = new Cola<>();
         random = new Random();
         cajero1 = new Cajero();
-        idCircle1.setStroke(Color.DODGERBLUE);  
+        idCircle1.setStroke(Color.DODGERBLUE); 
 
     }
 

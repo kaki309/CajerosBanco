@@ -10,6 +10,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -17,42 +18,33 @@ import javafx.scene.shape.Circle;
  */
 public class Cajero {
 
-    public void ejecutar(Cola<Cliente> cola, LinkedList<Cliente> atendidos, Circle forma) {
-        
-        if (!cola.estaVacia()) {
+    public void run(Cola<Cliente> cola, LinkedList<Cliente> atendidos, Circle forma, Text duracion) {
+        if (!cola.estaVacia()){
             Cliente elemento = cola.desencolar();
             int tiempo = elemento.getTiempoAtencion();
 
             Timer timer = new Timer();
-            Timer timer2 = new Timer();
             TimerTask task = new TimerTask() {
 
+                int i = 0;
+
+                @Override
                 public void run() {
                     forma.setStroke(Color.RED);
-                    TimerTask task2 = new TimerTask() {
+                    
+                    duracion.setText(String.valueOf(tiempo-i));
 
-                        int i = 0;
-
-                        public void run() {
-
-                            if (i == tiempo) {
-                                atendidos.add(elemento);
-                                forma.setStroke(Color.GREEN);
-                                timer.cancel();
-                            }
-                            i++;
-
-                        }
-
-                    };
-                    timer2.scheduleAtFixedRate(task2, 0, 1000);
-
+                    if (i == tiempo) {
+                        forma.setStroke(Color.GREEN);
+                        atendidos.addLast(elemento);
+                        duracion.setText("XX");
+                        cancel();
+                    }
+                    i++;
                 }
 
             };
-            timer.scheduleAtFixedRate(task, 3000, tiempo * 1000);
+            timer.scheduleAtFixedRate(task, 0, 1000);
         }
-
     }
-
 }
