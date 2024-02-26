@@ -52,12 +52,12 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Circle fill="DODGERBLUE" layoutX="155.0" layoutY="194.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="DODGERBLUE" layoutX="265.0" layoutY="194.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="DODGERBLUE" layoutX="390.0" layoutY="194.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="DODGERBLUE" layoutX="525.0" layoutY="194.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="DODGERBLUE" layoutX="673.0" layoutY="194.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="DODGERBLUE" layoutX="822.0" layoutY="194.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="155.0" layoutY="194.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="265.0" layoutY="194.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="390.0" layoutY="194.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="525.0" layoutY="194.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="673.0" layoutY="194.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="822.0" layoutY="194.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
       <MenuBar layoutX="453.0">
          <menus>
             <Menu mnemonicParsing="false" text="Programa">

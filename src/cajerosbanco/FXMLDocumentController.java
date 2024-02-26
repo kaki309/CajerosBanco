@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import modelo.Cajero;
 
 /*/** 
  * Clase FXML Controller para manejar la interfaz gráfica
@@ -47,6 +48,14 @@ public class FXMLDocumentController implements Initializable {
     //METODOS
     @FXML
     public void iniciar(ActionEvent event) {
+        crearClientes();
+
+        //PARA DEMOSTRAR QUE LOS CAJEROS ESTÁN OCUPADOS, PONER COLOR EN ROJO 
+        //SI ESTÁN LIBRES DEBERÍAN SER VERDES
+        
+    }
+
+    public void crearClientes() {
 
         executor = Executors.newSingleThreadScheduledExecutor();
 
@@ -88,8 +97,10 @@ public class FXMLDocumentController implements Initializable {
             }
         };
         futureTask = executor.schedule(task, 0, TimeUnit.SECONDS);
-    }
 
+    }
+    
+    
     public String mostrar(Cola<Cliente> cola) {
 
         String linea = cola.toString();
