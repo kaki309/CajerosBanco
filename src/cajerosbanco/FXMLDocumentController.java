@@ -90,6 +90,7 @@ public class FXMLDocumentController implements Initializable {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {
+                //Atender Clientes
                 if (!colaNatural.estaVacia() && !cajero1.isEstaEjecutando()) {
                     cajero1.run(colaNatural, idCircle1, textCajero1, clientesAtendidos);
                 }
@@ -109,13 +110,33 @@ public class FXMLDocumentController implements Initializable {
                     cajero6.run(colaPreferencial, idCircle6, textCajero6, clientesAtendidos);
                 }
                 
+                //Actualizar colas
+                if(colaNatural.estaVacia()){
+                    txtColaNatural.setText("[COLA VACÍA]");
+                }else{
+                    txtColaNatural.setText(mostrarColas(colaNatural));
+                }
+                
+                if(colaClientes.estaVacia()){
+                    txtColaClientes.setText("[COLA VACÍA]");
+                }else{
+                    txtColaClientes.setText(mostrarColas(colaClientes));
+                }
+                
+                if(colaPreferencial.estaVacia()){
+                    txtColaPreferencial.setText("[COLA VACÍA]");
+                }else{
+                    txtColaPreferencial.setText(mostrarColas(colaPreferencial));
+                }
+                
+                //Actualizar registro de clientes atendidos
                 txtClientesAtendidos.setText(mostrarAtendidos());
 
             }
         };
         timer.scheduleAtFixedRate(task, 3000, 1000);
-    }  
-    
+    }
+
     public void crearClientes() {
 
         executor = Executors.newSingleThreadScheduledExecutor();
@@ -154,7 +175,7 @@ public class FXMLDocumentController implements Initializable {
                 }
 
                 // Programa la próxima ejecución con un periodo aleatorio
-                int delay =random.nextInt(6); // Delay entre 1 y 5 segundos
+                int delay = random.nextInt(6); // Delay entre 1 y 5 segundos
                 futureTask = executor.schedule(this, delay, TimeUnit.SECONDS);
             }
         };
@@ -176,7 +197,7 @@ public class FXMLDocumentController implements Initializable {
         }
         return cadena;
     }
-    
+
     public String mostrarAtendidos() {
 
         String linea = clientesAtendidos.toString();
@@ -200,6 +221,16 @@ public class FXMLDocumentController implements Initializable {
         if (executor != null) {
             executor.shutdown();
         }
+
+        do {
+
+        } while (!cajero1.isEstaEjecutando()
+                && !cajero2.isEstaEjecutando()
+                && !cajero3.isEstaEjecutando()
+                && !cajero4.isEstaEjecutando()
+                && !cajero5.isEstaEjecutando()
+                && !cajero6.isEstaEjecutando());
+
     }
 
     @Override
