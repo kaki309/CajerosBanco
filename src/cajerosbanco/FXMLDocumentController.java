@@ -18,7 +18,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javax.swing.JOptionPane;
@@ -92,23 +91,25 @@ public class FXMLDocumentController implements Initializable {
         TimerTask task = new TimerTask() {
             public void run() {
                 if (!colaNatural.estaVacia() && !cajero1.isEstaEjecutando()) {
-                    cajero1.run(colaNatural, idCircle1, textCajero1);
+                    cajero1.run(colaNatural, idCircle1, textCajero1, clientesAtendidos);
                 }
                 if (!colaNatural.estaVacia() && !cajero2.isEstaEjecutando()) {
-                    cajero2.run(colaNatural, idCircle2, textCajero2);
+                    cajero2.run(colaNatural, idCircle2, textCajero2, clientesAtendidos);
                 }
                 if (!colaClientes.estaVacia() && !cajero3.isEstaEjecutando()) {
-                    cajero3.run(colaClientes, idCircle3, textCajero3);
+                    cajero3.run(colaClientes, idCircle3, textCajero3, clientesAtendidos);
                 }
                 if (!colaClientes.estaVacia() && !cajero4.isEstaEjecutando()) {
-                    cajero4.run(colaClientes, idCircle4, textCajero4);
+                    cajero4.run(colaClientes, idCircle4, textCajero4, clientesAtendidos);
                 }
                 if (!colaPreferencial.estaVacia() && !cajero5.isEstaEjecutando()) {
-                    cajero5.run(colaPreferencial, idCircle5, textCajero5);
+                    cajero5.run(colaPreferencial, idCircle5, textCajero5, clientesAtendidos);
                 }
                 if (!colaPreferencial.estaVacia() && !cajero6.isEstaEjecutando()) {
-                    cajero6.run(colaPreferencial, idCircle6, textCajero6);
+                    cajero6.run(colaPreferencial, idCircle6, textCajero6, clientesAtendidos);
                 }
+                
+                txtClientesAtendidos.setText(mostrarAtendidos());
 
             }
         };
@@ -139,17 +140,17 @@ public class FXMLDocumentController implements Initializable {
                 //Encolar Natural      
                 if (asignarCola == 1) {
                     colaNatural.encolar(objCliente);
-                    txtColaNatural.setText(mostrar(colaNatural));
+                    txtColaNatural.setText(mostrarColas(colaNatural));
                 }
                 //Encolar Clientes
                 if (asignarCola == 2) {
                     colaClientes.encolar(objCliente);
-                    txtColaClientes.setText(mostrar(colaClientes));
+                    txtColaClientes.setText(mostrarColas(colaClientes));
                 }
                 //Encolar Preferencial
                 if (asignarCola == 3) {
                     colaPreferencial.encolar(objCliente);
-                    txtColaPreferencial.setText(mostrar(colaPreferencial));
+                    txtColaPreferencial.setText(mostrarColas(colaPreferencial));
                 }
 
                 // Programa la próxima ejecución con un periodo aleatorio
@@ -161,9 +162,24 @@ public class FXMLDocumentController implements Initializable {
 
     }
 
-    public String mostrar(Cola<Cliente> cola) {
+    public String mostrarColas(Cola<Cliente> cola) {
 
         String linea = cola.toString();
+        String[] info;
+        String cadena = "";
+
+        info = linea.split("seg.");
+
+        for (int i = 0; i < info.length; i++) {
+
+            cadena += info[i] + "\n";
+        }
+        return cadena;
+    }
+    
+    public String mostrarAtendidos() {
+
+        String linea = clientesAtendidos.toString();
         String[] info;
         String cadena = "";
 
@@ -183,9 +199,6 @@ public class FXMLDocumentController implements Initializable {
         }
         if (executor != null) {
             executor.shutdown();
-            txtColaNatural.setText("Programa Finalizado");
-            txtColaClientes.setText("Programa Finalizado");
-            txtColaPreferencial.setText("Programa Finalizado");
         }
     }
 
@@ -195,6 +208,7 @@ public class FXMLDocumentController implements Initializable {
         colaNatural = new Cola<>();
         colaClientes = new Cola<>();
         colaPreferencial = new Cola<>();
+        clientesAtendidos = new LinkedList<>();
         random = new Random();
         cajero1 = new Cajero();
         cajero2 = new Cajero();

@@ -5,6 +5,7 @@
 package modelo;
 
 import cola.Cola;
+import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.application.Platform;
@@ -43,7 +44,7 @@ public class Cajero {
         this.estaEjecutando = estaEjecutando;
     }
 
-    public void run(Cola<Cliente> cola, Circle forma, Text txtDuracion) {
+    public void run(Cola<Cliente> cola, Circle forma, Text txtDuracion, LinkedList<Cliente> atendidos) {
         Cliente elemento = cola.desencolar();
         estaEjecutando = true;
         int tiempo = elemento.getTiempoAtencion();
@@ -58,14 +59,15 @@ public class Cajero {
                 forma.setStroke(Color.RED);
 
                 Platform.runLater(() -> {
-                        txtDuracion.setText(String.valueOf(tiempo - i));
-                    });
+                    txtDuracion.setText(String.valueOf(tiempo - i));
+                });
 
                 if (i == tiempo) {
                     Platform.runLater(() -> {
                         forma.setStroke(Color.GREEN);
                         txtDuracion.setText("XX");
                     });
+                    atendidos.addLast(elemento);
                     estaEjecutando = false;
                     cancel();
                 }
