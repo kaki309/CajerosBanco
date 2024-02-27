@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.shape.*?>
@@ -94,7 +95,6 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="86.0" layoutY="37.0" mnemonicParsing="false" onAction="#activar" text="Button" />
       <Text fx:id="textCajero1" layoutX="42.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="XX" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="36.0" />

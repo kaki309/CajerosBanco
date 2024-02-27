@@ -88,17 +88,33 @@ public class FXMLDocumentController implements Initializable {
     public void iniciar(ActionEvent event) {
         crearClientes();
 
-//        Timer timer = new Timer();
-//        TimerTask task = new TimerTask() {
-//            public void run() {
-//
-//                cajero1.run(colaNatural, colaClientes, colaPreferencial, idCircle1, textCajero1);
-//
-//            }
-//        };
-//        timer.schedule(task, 0);
-    }
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            public void run() {
+                if (!colaNatural.estaVacia() && !cajero1.isEstaEjecutando()) {
+                    cajero1.run(colaNatural, idCircle1, textCajero1);
+                }
+                if (!colaNatural.estaVacia() && !cajero2.isEstaEjecutando()) {
+                    cajero2.run(colaNatural, idCircle2, textCajero2);
+                }
+                if (!colaClientes.estaVacia() && !cajero3.isEstaEjecutando()) {
+                    cajero3.run(colaClientes, idCircle3, textCajero3);
+                }
+                if (!colaClientes.estaVacia() && !cajero4.isEstaEjecutando()) {
+                    cajero4.run(colaClientes, idCircle4, textCajero4);
+                }
+                if (!colaPreferencial.estaVacia() && !cajero5.isEstaEjecutando()) {
+                    cajero5.run(colaPreferencial, idCircle5, textCajero5);
+                }
+                if (!colaPreferencial.estaVacia() && !cajero6.isEstaEjecutando()) {
+                    cajero6.run(colaPreferencial, idCircle6, textCajero6);
+                }
 
+            }
+        };
+        timer.scheduleAtFixedRate(task, 3000, 1000);
+    }  
+    
     public void crearClientes() {
 
         executor = Executors.newSingleThreadScheduledExecutor();
@@ -137,18 +153,11 @@ public class FXMLDocumentController implements Initializable {
                 }
 
                 // Programa la próxima ejecución con un periodo aleatorio
-                int delay = 3 + new java.util.Random().nextInt(13); // Delay entre 1 y 15 segundos
+                int delay =random.nextInt(6); // Delay entre 1 y 5 segundos
                 futureTask = executor.schedule(this, delay, TimeUnit.SECONDS);
             }
         };
         futureTask = executor.schedule(task, 0, TimeUnit.SECONDS);
-
-    }
-
-    public void activar() {
-
-        cajero1.run(colaNatural, idCircle1, textCajero1);
-        cajero2.run(colaNatural, idCircle2, textCajero2);
 
     }
 
@@ -188,17 +197,11 @@ public class FXMLDocumentController implements Initializable {
         colaPreferencial = new Cola<>();
         random = new Random();
         cajero1 = new Cajero();
-        idCircle1.setStroke(Color.DODGERBLUE);
         cajero2 = new Cajero();
-        idCircle2.setStroke(Color.DODGERBLUE);
         cajero3 = new Cajero();
-        idCircle3.setStroke(Color.DODGERBLUE);
         cajero4 = new Cajero();
-        idCircle4.setStroke(Color.DODGERBLUE);
         cajero5 = new Cajero();
-        idCircle5.setStroke(Color.DODGERBLUE);
         cajero6 = new Cajero();
-        idCircle6.setStroke(Color.DODGERBLUE);
 
     }
 

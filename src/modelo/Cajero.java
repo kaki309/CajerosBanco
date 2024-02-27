@@ -5,49 +5,75 @@
 package modelo;
 
 import cola.Cola;
-import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Random;
+import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 /**
+ * Clase Cajero para crear cajeros con distintas entradas de las colas para
+ * atender
  *
- * @author andre
+ * @author andres_gab.fernandez@uao.edu.co Andrés Gabriel Fernández Código
+ * 2225751
+ * @date 24 Febrero 2024
+ * @version 1.0
  */
 public class Cajero {
 
+    private boolean estaEjecutando;
+
+    /**
+     * Get the value of estaEjecutando
+     *
+     * @return the value of estaEjecutando
+     */
+    public boolean isEstaEjecutando() {
+        return estaEjecutando;
+    }
+
+    /**
+     * Set the value of estaEjecutando
+     *
+     * @param estaEjecutando new value of estaEjecutando
+     */
+    public void setEstaEjecutando(boolean estaEjecutando) {
+        this.estaEjecutando = estaEjecutando;
+    }
+
     public void run(Cola<Cliente> cola, Circle forma, Text txtDuracion) {
-        if (!cola.estaVacia()) {
-            Cliente elemento = cola.desencolar();
-            int tiempo = elemento.getTiempoAtencion();
+        Cliente elemento = cola.desencolar();
+        estaEjecutando = true;
+        int tiempo = elemento.getTiempoAtencion();
 
-            Timer timer = new Timer();
-            TimerTask task = new TimerTask() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
 
-                int i = 0;
+            int i = 0;
 
-                @Override
-                public void run() {
-                    forma.setStroke(Color.RED);
+            @Override
+            public void run() {
+                forma.setStroke(Color.RED);
 
-                    txtDuracion.setText(String.valueOf(tiempo - i));
+                Platform.runLater(() -> {
+                        txtDuracion.setText(String.valueOf(tiempo - i));
+                    });
 
-                    if (i == tiempo) {
+                if (i == tiempo) {
+                    Platform.runLater(() -> {
                         forma.setStroke(Color.GREEN);
                         txtDuracion.setText("XX");
-                        cancel();
-                    }
-                    i++;
+                    });
+                    estaEjecutando = false;
+                    cancel();
                 }
+                i++;
+            }
 
-            };
-            timer.scheduleAtFixedRate(task, 0, 1000);
-        }
-
+        };
+        timer.scheduleAtFixedRate(task, 0, 1000);
     }
 
 }
-
