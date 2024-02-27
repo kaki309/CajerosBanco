@@ -8,6 +8,7 @@ import cola.Cola;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Random;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -18,8 +19,8 @@ import javafx.scene.text.Text;
  */
 public class Cajero {
 
-    public void run(Cola<Cliente> cola, LinkedList<Cliente> atendidos, Circle forma, Text duracion) {
-        if (!cola.estaVacia()){
+    public void run(Cola<Cliente> cola, Circle forma, Text txtDuracion) {
+        if (!cola.estaVacia()) {
             Cliente elemento = cola.desencolar();
             int tiempo = elemento.getTiempoAtencion();
 
@@ -31,13 +32,12 @@ public class Cajero {
                 @Override
                 public void run() {
                     forma.setStroke(Color.RED);
-                    
-                    duracion.setText(String.valueOf(tiempo-i));
+
+                    txtDuracion.setText(String.valueOf(tiempo - i));
 
                     if (i == tiempo) {
                         forma.setStroke(Color.GREEN);
-                        atendidos.addLast(elemento);
-                        duracion.setText("XX");
+                        txtDuracion.setText("XX");
                         cancel();
                     }
                     i++;
@@ -46,5 +46,8 @@ public class Cajero {
             };
             timer.scheduleAtFixedRate(task, 0, 1000);
         }
+
     }
+
 }
+

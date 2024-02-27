@@ -11,6 +11,8 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,12 +47,37 @@ public class FXMLDocumentController implements Initializable {
     private Text textCajero1;
     @FXML
     private Circle idCircle1;
+    @FXML
+    private Text textCajero2;
+    @FXML
+    private Circle idCircle2;
+    @FXML
+    private Text textCajero3;
+    @FXML
+    private Circle idCircle3;
+    @FXML
+    private Text textCajero4;
+    @FXML
+    private Circle idCircle4;
+    @FXML
+    private Text textCajero5;
+    @FXML
+    private Circle idCircle5;
+    @FXML
+    private Text textCajero6;
+    @FXML
+    private Circle idCircle6;
 
     //Variables de funcionamiento
     Cola<Cliente> colaNatural;
     Cola<Cliente> colaClientes;
     Cola<Cliente> colaPreferencial;
     Cajero cajero1;
+    Cajero cajero2;
+    Cajero cajero3;
+    Cajero cajero4;
+    Cajero cajero5;
+    Cajero cajero6;
     Random random;
     LinkedList<Cliente> clientesAtendidos;
     private ScheduledExecutorService executor;
@@ -60,7 +87,16 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     public void iniciar(ActionEvent event) {
         crearClientes();
-        
+
+//        Timer timer = new Timer();
+//        TimerTask task = new TimerTask() {
+//            public void run() {
+//
+//                cajero1.run(colaNatural, colaClientes, colaPreferencial, idCircle1, textCajero1);
+//
+//            }
+//        };
+//        timer.schedule(task, 0);
     }
 
     public void crearClientes() {
@@ -76,25 +112,26 @@ public class FXMLDocumentController implements Initializable {
                 int tiempoMinimo = 3; // Valor mínimo del tiempo para atender
                 int tiempoMaximo = 20; // Valor máximo del tiempo para atender
                 int colaMin = 1;
-                int colaMax = 30;
+                int colaMax = 3;
 
-                int edadAleatoria = random.nextInt(edadMaxima - edadMinima + 1) + edadMinima;
-                int tiempoAleatorio = random.nextInt(tiempoMaximo - tiempoMinimo + 1) + tiempoMinimo;
+                int edadAleatoria = random.nextInt((edadMaxima - edadMinima) + 1) + edadMinima;
+                int tiempoAleatorio = random.nextInt((tiempoMaximo - tiempoMinimo) + 1) + tiempoMinimo;
                 Cliente objCliente = new Cliente(edadAleatoria, tiempoAleatorio);
 
-                int asignarCola = random.nextInt(colaMax - colaMin + 1) + colaMin;
-                //Encolar en Cola Natural
-                if (asignarCola >= 1 && asignarCola <= 10) {
+                int asignarCola = random.nextInt((colaMax - colaMin) + 1) + colaMin;
+
+                //Encolar Natural      
+                if (asignarCola == 1) {
                     colaNatural.encolar(objCliente);
                     txtColaNatural.setText(mostrar(colaNatural));
                 }
-                //Encolar en Cola para Clientes
-                if (asignarCola >= 11 && asignarCola <= 20) {
+                //Encolar Clientes
+                if (asignarCola == 2) {
                     colaClientes.encolar(objCliente);
                     txtColaClientes.setText(mostrar(colaClientes));
                 }
-                //Encolar en Cola Preferencial
-                if (asignarCola >= 21 && asignarCola <= 30) {
+                //Encolar Preferencial
+                if (asignarCola == 3) {
                     colaPreferencial.encolar(objCliente);
                     txtColaPreferencial.setText(mostrar(colaPreferencial));
                 }
@@ -107,16 +144,16 @@ public class FXMLDocumentController implements Initializable {
         futureTask = executor.schedule(task, 0, TimeUnit.SECONDS);
 
     }
-    
-    public void activar(){
-        
-        cajero1.run(colaNatural, clientesAtendidos, idCircle1, textCajero1);
-    
+
+    public void activar() {
+
+        cajero1.run(colaNatural, idCircle1, textCajero1);
+        cajero2.run(colaNatural, idCircle2, textCajero2);
+
     }
-    
-    
+
     public String mostrar(Cola<Cliente> cola) {
-        
+
         String linea = cola.toString();
         String[] info;
         String cadena = "";
@@ -151,7 +188,17 @@ public class FXMLDocumentController implements Initializable {
         colaPreferencial = new Cola<>();
         random = new Random();
         cajero1 = new Cajero();
-        idCircle1.setStroke(Color.DODGERBLUE); 
+        idCircle1.setStroke(Color.DODGERBLUE);
+        cajero2 = new Cajero();
+        idCircle2.setStroke(Color.DODGERBLUE);
+        cajero3 = new Cajero();
+        idCircle3.setStroke(Color.DODGERBLUE);
+        cajero4 = new Cajero();
+        idCircle4.setStroke(Color.DODGERBLUE);
+        cajero5 = new Cajero();
+        idCircle5.setStroke(Color.DODGERBLUE);
+        cajero6 = new Cajero();
+        idCircle6.setStroke(Color.DODGERBLUE);
 
     }
 
