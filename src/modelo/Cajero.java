@@ -5,6 +5,8 @@
 package modelo;
 
 import cola.Cola;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,6 +27,15 @@ import javafx.scene.text.Text;
 public class Cajero {
 
     private boolean estaEjecutando;
+    private LinkedList<Cliente> registroClientes = new LinkedList<>();
+
+    public LinkedList<Cliente> getRegistroClientes() {
+        return registroClientes;
+    }
+
+    public void setRegistroClientes(LinkedList<Cliente> registroClientes) {
+        this.registroClientes = registroClientes;
+    }
 
     /**
      * Get the value of estaEjecutando
@@ -46,6 +57,7 @@ public class Cajero {
 
     public void run(Cola<Cliente> cola, Circle forma, Text txtDuracion, LinkedList<Cliente> atendidos) {
         Cliente elemento = cola.desencolar();
+        Cliente copia = (Cliente) elemento.copy();
         estaEjecutando = true;
         int tiempo = elemento.getTiempoAtencion();
 
@@ -59,7 +71,7 @@ public class Cajero {
                 forma.setStroke(Color.RED);
 
                 Platform.runLater(() -> {
-                    txtDuracion.setText(String.valueOf(tiempo - i));
+                    txtDuracion.setText(String.valueOf((tiempo - i)+1));
                 });
 
                 if (i == tiempo) {
@@ -68,6 +80,7 @@ public class Cajero {
                         txtDuracion.setText("XX");
                     });
                     atendidos.addLast(elemento);
+                    registroClientes.addLast(copia);
                     estaEjecutando = false;
                     cancel();
                 }
@@ -78,4 +91,48 @@ public class Cajero {
         timer.scheduleAtFixedRate(task, 0, 1000);
     }
 
+    public int clientesAtendidos() {
+        int cantidad = registroClientes.size();
+        return cantidad;
+    }
+
+    public int tiempoAtencion() {
+        int tiempo = 0;
+        for (int i = 0; i < registroClientes.size(); i++) {
+
+            tiempo += registroClientes.get(i).getTiempoAtencion();
+        }
+        return tiempo;
+    }
+
+    public double promedioTiempo() {
+        double promedioTiempo = 0;
+        double tiempo = (double) tiempoAtencion();
+        
+        promedioTiempo =  tiempo/registroClientes.size();
+
+        return promedioTiempo;
+    }
+
+    public int promedioEdad() {
+        int promedioEdad = 0;
+        int sumaEdad = 0;
+        for (int i = 0; i < registroClientes.size(); i++) {
+
+            sumaEdad += registroClientes.get(i).getEdad();
+        }
+        promedioEdad = sumaEdad / registroClientes.size();
+
+        return promedioEdad;
+    }
+
+    public int edadMasAvanzada() {
+
+        Collections.sort(registroClientes, new Comparator<Cliente>() {
+            public int compare(Cliente c1, Cliente c2) {
+                return Integer.compare(c1.getEdad(), c2.getEdad());
+            }
+        });
+        return registroClientes.getLast().getEdad();
+    }
 }

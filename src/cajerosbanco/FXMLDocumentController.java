@@ -14,10 +14,12 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javax.swing.JOptionPane;
@@ -79,6 +81,7 @@ public class FXMLDocumentController implements Initializable {
     Cajero cajero6;
     Random random;
     LinkedList<Cliente> clientesAtendidos;
+    private Timer timerCajeros;
     private ScheduledExecutorService executor;
     private Future<?> futureTask;
 
@@ -87,7 +90,7 @@ public class FXMLDocumentController implements Initializable {
     public void iniciar(ActionEvent event) {
         crearClientes();
 
-        Timer timer = new Timer();
+        timerCajeros = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {
                 //Atender Clientes
@@ -109,32 +112,119 @@ public class FXMLDocumentController implements Initializable {
                 if (!colaPreferencial.estaVacia() && !cajero6.isEstaEjecutando()) {
                     cajero6.run(colaPreferencial, idCircle6, textCajero6, clientesAtendidos);
                 }
-                
-                //Actualizar colas
-                if(colaNatural.estaVacia()){
-                    txtColaNatural.setText("[COLA VACÍA]");
-                }else{
-                    txtColaNatural.setText(mostrarColas(colaNatural));
-                }
-                
-                if(colaClientes.estaVacia()){
-                    txtColaClientes.setText("[COLA VACÍA]");
-                }else{
-                    txtColaClientes.setText(mostrarColas(colaClientes));
-                }
-                
-                if(colaPreferencial.estaVacia()){
-                    txtColaPreferencial.setText("[COLA VACÍA]");
-                }else{
-                    txtColaPreferencial.setText(mostrarColas(colaPreferencial));
-                }
-                
-                //Actualizar registro de clientes atendidos
-                txtClientesAtendidos.setText(mostrarAtendidos());
 
+                //Actualizar colas
+                if (colaNatural.estaVacia()) {
+                    Platform.runLater(() -> {
+                        txtColaNatural.setText("[COLA VACÍA]");
+                    });
+                } else {
+                    Platform.runLater(() -> {
+                        txtColaNatural.setText(mostrarColas(colaNatural));
+                    });
+                }
+
+                if (colaClientes.estaVacia()) {
+                    Platform.runLater(() -> {
+                        txtColaClientes.setText("[COLA VACÍA]");
+                    });
+                } else {
+                    Platform.runLater(() -> {
+                        txtColaClientes.setText(mostrarColas(colaClientes));
+                    });
+                }
+
+                if (colaPreferencial.estaVacia()) {
+                    Platform.runLater(() -> {
+                        txtColaPreferencial.setText("[COLA VACÍA]");
+                    });
+                } else {
+                    Platform.runLater(() -> {
+                        txtColaPreferencial.setText(mostrarColas(colaPreferencial));
+                    });
+                }
+
+                //Actualizar registro de clientes atendidos
+                Platform.runLater(() -> {
+                    txtClientesAtendidos.setText(mostrarAtendidos());
+                });
             }
         };
-        timer.scheduleAtFixedRate(task, 3000, 1000);
+        timerCajeros.scheduleAtFixedRate(task, 3000, 1000);
+    }
+
+    @FXML
+    public void finalizar(ActionEvent event) {
+        if (futureTask != null) {
+            futureTask.cancel(true);
+        }
+        if (executor != null) {
+            executor.shutdown();
+        }
+        if (timerCajeros != null) {
+            timerCajeros.cancel();
+        }
+
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+
+            public void run() {
+
+                if (!cajero1.isEstaEjecutando()
+                        && !cajero2.isEstaEjecutando()
+                        && !cajero3.isEstaEjecutando()
+                        && !cajero4.isEstaEjecutando()
+                        && !cajero5.isEstaEjecutando()
+                        && !cajero6.isEstaEjecutando()) {
+
+                    String reporte = "Clientes que quedaron en cola: " + calcularCantidadEnCola() + "\n"
+                            + "\n"
+                            + "Clientes atendidos por el Cajero 1: " + cajero1.clientesAtendidos() + "\n"
+                            + "Tiempo total empleado: " + cajero1.tiempoAtencion() + " Segundos\n"
+                            + "Promedio de tiempo: " + String.format("%.2f", cajero1.promedioTiempo()) + " Segundos\n"
+                            + "Edad promedio atendida: " + cajero1.promedioEdad() + " Años\n"
+                            + "Edad más avanzada atendida: " + cajero1.edadMasAvanzada() + " Años\n"
+                            + "\n"
+                            + "Clientes atendidos por el Cajero 2: " + cajero2.clientesAtendidos() + "\n"
+                            + "Tiempo total empleado: " + cajero2.tiempoAtencion() + " Segundos\n"
+                            + "Promedio de tiempo: " + String.format("%.2f", cajero2.promedioTiempo()) + " Segundos\n"
+                            + "Edad promedio atendida: " + cajero2.promedioEdad() + " Años\n"
+                            + "Edad más avanzada atendida: " + cajero2.edadMasAvanzada() + " Años\n"
+                            + "\n"
+                            + "Clientes atendidos por el Cajero 3: " + cajero3.clientesAtendidos() + "\n"
+                            + "Tiempo total empleado: " + cajero3.tiempoAtencion() + " Segundos\n"
+                            + "Promedio de tiempo: " + String.format("%.2f", cajero3.promedioTiempo()) + " Segundos\n"
+                            + "Edad promedio atendida: " + cajero3.promedioEdad() + " Años\n"
+                            + "Edad más avanzada atendida: " + cajero3.edadMasAvanzada() + " Años\n"
+                            + "\n"
+                            + "Clientes atendidos por el Cajero 4: " + cajero4.clientesAtendidos() + "\n"
+                            + "Tiempo total empleado: " + cajero4.tiempoAtencion() + " Segundos\n"
+                            + "Promedio de tiempo: " + String.format("%.2f", cajero4.promedioTiempo()) + " Segundos\n"
+                            + "Edad promedio atendida: " + cajero4.promedioEdad() + " Años\n"
+                            + "Edad más avanzada atendida: " + cajero4.edadMasAvanzada() + " Años\n"
+                            + "\n"
+                            + "Clientes atendidos por el Cajero 5: " + cajero5.clientesAtendidos() + "\n"
+                            + "Tiempo total empleado: " + cajero5.tiempoAtencion() + " Segundos\n"
+                            + "Promedio de tiempo: " + String.format("%.2f", cajero5.promedioTiempo()) + " Segundos\n"
+                            + "Edad promedio atendida: " + cajero5.promedioEdad() + " Años\n"
+                            + "Edad más avanzada atendida: " + cajero5.edadMasAvanzada() + " Años\n"
+                            + "\n"
+                            + "Clientes atendidos por el Cajero 6: " + cajero6.clientesAtendidos() + "\n"
+                            + "Tiempo total empleado: " + cajero6.tiempoAtencion() + " Segundos\n"
+                            + "Promedio de tiempo: " + String.format("%.2f", cajero6.promedioTiempo()) + " Segundos\n"
+                            + "Edad promedio atendida: " + cajero6.promedioEdad() + " Años\n"
+                            + "Edad más avanzada atendida: " + cajero6.edadMasAvanzada() + " Años";
+                    
+                    JOptionPane.showMessageDialog(null, reporte);
+                    timer.cancel();
+                } else {
+                    Platform.runLater(() -> {
+                        txtClientesAtendidos.setText(mostrarAtendidos());
+                    });
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 1000);
     }
 
     public void crearClientes() {
@@ -147,7 +237,7 @@ public class FXMLDocumentController implements Initializable {
                 //Crear cliente
                 int edadMinima = 14; // Valor mínimo de la edad
                 int edadMaxima = 99; // Valor máximo de la edad
-                int tiempoMinimo = 3; // Valor mínimo del tiempo para atender
+                int tiempoMinimo = 5; // Valor mínimo del tiempo para atender
                 int tiempoMaximo = 20; // Valor máximo del tiempo para atender
                 int colaMin = 1;
                 int colaMax = 3;
@@ -158,24 +248,30 @@ public class FXMLDocumentController implements Initializable {
 
                 int asignarCola = random.nextInt((colaMax - colaMin) + 1) + colaMin;
 
-                //Encolar Natural      
+                //Encolar Natural
                 if (asignarCola == 1) {
                     colaNatural.encolar(objCliente);
-                    txtColaNatural.setText(mostrarColas(colaNatural));
+                    Platform.runLater(() -> {
+                        txtColaNatural.setText(mostrarColas(colaNatural));
+                    });
                 }
                 //Encolar Clientes
                 if (asignarCola == 2) {
                     colaClientes.encolar(objCliente);
-                    txtColaClientes.setText(mostrarColas(colaClientes));
+                    Platform.runLater(() -> {
+                        txtColaClientes.setText(mostrarColas(colaClientes));
+                    });
                 }
                 //Encolar Preferencial
                 if (asignarCola == 3) {
                     colaPreferencial.encolar(objCliente);
-                    txtColaPreferencial.setText(mostrarColas(colaPreferencial));
+                    Platform.runLater(() -> {
+                        txtColaPreferencial.setText(mostrarColas(colaPreferencial));
+                    });
                 }
 
                 // Programa la próxima ejecución con un periodo aleatorio
-                int delay = random.nextInt(6); // Delay entre 1 y 5 segundos
+                int delay = 1 + random.nextInt(3); // Delay entre 1 y 4 segundos
                 futureTask = executor.schedule(this, delay, TimeUnit.SECONDS);
             }
         };
@@ -213,24 +309,19 @@ public class FXMLDocumentController implements Initializable {
         return cadena;
     }
 
-    @FXML
-    public void finalizar(ActionEvent event) {
-        if (futureTask != null) {
-            futureTask.cancel(true);
-        }
-        if (executor != null) {
-            executor.shutdown();
-        }
+    public int calcularCantidadEnCola() {
+        String linea = colaNatural.toString();
+        String[] info = linea.split("seg.");
+        int cantidad = info.length - 1;
 
-        do {
+        String linea2 = colaClientes.toString();
+        String[] info2 = linea2.split("seg.");
+        cantidad += info2.length - 1;
 
-        } while (!cajero1.isEstaEjecutando()
-                && !cajero2.isEstaEjecutando()
-                && !cajero3.isEstaEjecutando()
-                && !cajero4.isEstaEjecutando()
-                && !cajero5.isEstaEjecutando()
-                && !cajero6.isEstaEjecutando());
-
+        String linea3 = colaPreferencial.toString();
+        String[] info3 = linea3.split("seg.");
+        cantidad += info3.length - 1;
+        return cantidad;
     }
 
     @Override
