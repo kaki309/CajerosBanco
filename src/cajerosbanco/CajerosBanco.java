@@ -11,26 +11,36 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
+ * Clase CajerosBanco para iniciar la interfaz gráfica
  *
- * @author andre
+ * @author andres_gab.fernandez@uao.edu.co Andrés Gabriel Fernández Romero Código 2225751
+ * @date 24 Febrero 2024
+ * @version 1.0
  */
 public class CajerosBanco extends Application {
-    
+
+    /**
+     * Inicia la interfaz gráfica señalada
+     *
+     * @param stage
+     */
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        
+
         Scene scene = new Scene(root);
-        
+
         stage.setScene(scene);
         stage.show();
     }
 
     /**
-     * @param args the command line arguments
+     * Inicia los parámetros
+     *
+     * @param args
      */
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

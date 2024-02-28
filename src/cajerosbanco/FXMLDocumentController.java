@@ -6,6 +6,7 @@ package cajerosbanco;
 
 import cola.Cola;
 import modelo.Cliente;
+import modelo.Cajero;
 
 import java.net.URL;
 import java.util.LinkedList;
@@ -19,23 +20,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javax.swing.JOptionPane;
-import modelo.Cajero;
 
-/*/** 
- * Clase FXML Controller para manejar la interfaz gráfica
- * @author andres_gab.fernandez@uao.edu.co Andrés Gabriel Fernández Código 2225751
- * @author valeria.garcia_perez@uao.edu.co Valeria García Pérez Código 2225662
- * @author juan_p.gutierrez@uao.edu.co Juan Pablo Gutierrez Código 2221673
+/** 
+ * Clase FXMLDocumentController para manejar la ejecución del programa
+ * 
+ * @author andres_gab.fernandez@uao.edu.co Andrés Gabriel Fernández Romero Código 2225751
  * @date 24 Febrero 2024
  * @version 1.0 
  */
 public class FXMLDocumentController implements Initializable {
 
-    //Variables de interfaz gráfica
+    /////////////////////////////////Variables de interfaz gráfica
     @FXML
     private TextArea txtColaNatural;
     @FXML
@@ -69,7 +67,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Circle idCircle6;
 
-    //Variables de funcionamiento
+    /////////////////////////////////Variables de funcionamiento
     Cola<Cliente> colaNatural;
     Cola<Cliente> colaClientes;
     Cola<Cliente> colaPreferencial;
@@ -85,7 +83,15 @@ public class FXMLDocumentController implements Initializable {
     private ScheduledExecutorService executor;
     private Future<?> futureTask;
 
-    //METODOS
+    /////////////////////////////////METODOS
+    
+    /**
+     * Inicia la creación de Clientes, la ejecución de los cajeros, la
+     * actualiación periódica de las colas y la actualización periódica de los
+     * clientes ya atendidos
+     *
+     * @param event, para recibir la señal que se ha presionado un botón
+     */
     @FXML
     public void iniciar(ActionEvent event) {
         crearClientes();
@@ -93,6 +99,7 @@ public class FXMLDocumentController implements Initializable {
         timerCajeros = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {
+
                 //Atender Clientes
                 if (!colaNatural.estaVacia() && !cajero1.isEstaEjecutando()) {
                     cajero1.run(colaNatural, idCircle1, textCajero1, clientesAtendidos);
@@ -153,6 +160,13 @@ public class FXMLDocumentController implements Initializable {
         timerCajeros.scheduleAtFixedRate(task, 3000, 1000);
     }
 
+    /**
+     * Finaliza la creación de nuevos Clientes y espera a que los cajeros
+     * terminen de atender al cliente que tienen en el momento. Luego genera el
+     * reporte final de cada uno de los cajeros y lo muestra en pantalla
+     *
+     * @param event, para recibir la señal que se ha presionado un botón
+     */
     @FXML
     public void finalizar(ActionEvent event) {
         if (futureTask != null) {
@@ -214,7 +228,7 @@ public class FXMLDocumentController implements Initializable {
                             + "Promedio de tiempo: " + String.format("%.2f", cajero6.promedioTiempo()) + " Segundos\n"
                             + "Edad promedio atendida: " + cajero6.promedioEdad() + " Años\n"
                             + "Edad más avanzada atendida: " + cajero6.edadMasAvanzada() + " Años";
-                    
+
                     JOptionPane.showMessageDialog(null, reporte);
                     timer.cancel();
                 } else {
@@ -227,6 +241,10 @@ public class FXMLDocumentController implements Initializable {
         timer.scheduleAtFixedRate(task, 0, 1000);
     }
 
+    /**
+     * Crea de manera aleatoria con datos aleatorios los Clientes que son
+     * encolados en cada una de las 3 colas de manera aleatoria
+     */
     public void crearClientes() {
 
         executor = Executors.newSingleThreadScheduledExecutor();
@@ -279,6 +297,13 @@ public class FXMLDocumentController implements Initializable {
 
     }
 
+    /**
+     * Toma los objetos de la Cola y los muestra en una cadena de manera
+     * vertical según fueron añadidos (de arriba a abajo)
+     *
+     * @param cola, la Cola a pasar a String
+     * @return el valor de cadena
+     */
     public String mostrarColas(Cola<Cliente> cola) {
 
         String linea = cola.toString();
@@ -294,6 +319,12 @@ public class FXMLDocumentController implements Initializable {
         return cadena;
     }
 
+    /**
+     * Toma los objetos de la LinkedList clientesAtendidos y los muestra en una
+     * cadena de manera vertical según fueron añadidos (de arriba a abajo)
+     *
+     * @return el valor de cadena
+     */
     public String mostrarAtendidos() {
 
         String linea = clientesAtendidos.toString();
@@ -309,6 +340,12 @@ public class FXMLDocumentController implements Initializable {
         return cadena;
     }
 
+    /**
+     * Calcula la cantidad de Clientes que quedaron en las 3 colas sin ser
+     * atendidos
+     *
+     * @return el valor de cantidad
+     */
     public int calcularCantidadEnCola() {
         String linea = colaNatural.toString();
         String[] info = linea.split("seg.");
@@ -324,6 +361,12 @@ public class FXMLDocumentController implements Initializable {
         return cantidad;
     }
 
+    /**
+     * Es el constructor del programa, inicia las variables de funcionamiento
+     *
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 

@@ -7,10 +7,8 @@ package modelo;
 import cola.Base;
 
 /*/** 
- * Clase Cliente para la creación de los clientes a asignar a las colas
- * @author andres_gab.fernandez@uao.edu.co Andrés Gabriel Fernández Código 2225751
- * @author valeria.garcia_perez@uao.edu.co Valeria García Pérez Código 2225662
- * @author juan_p.gutierrez@uao.edu.co Juan Pablo Gutierrez Código 2221673
+ * Clase Cliente, para la creación de los obj Clientes a asignar a las colas
+ * @author andres_gab.fernandez@uao.edu.co Andrés Gabriel Fernández Romero Código 2225751
  * @date 24 Febrero 2024
  * @version 1.0 
  */
@@ -19,9 +17,18 @@ public class Cliente extends Base {
     private int edad;
     private int tiempoAtencion;
 
+    /**
+     * Constructor vacio para los objetos de Cliente
+     */
     public Cliente() {
     }
 
+    /**
+     * Constructor para los objetos de Cliente
+     *
+     * @param tiempoAtencion valor para asignarle al tiempoAtencion del obj
+     * @param edad valor para asignarle a la edad del obj
+     */
     public Cliente(int edad, int tiempoAtencion) {
         this.edad = edad;
         this.tiempoAtencion = tiempoAtencion;
@@ -29,7 +36,6 @@ public class Cliente extends Base {
 
     /**
      * Toma el valor de tiempoAtencion
-     *
      *
      * @return el valor de tiempoAtencion
      */
@@ -65,8 +71,7 @@ public class Cliente extends Base {
     }
 
     /**
-     * Muestra en formato de cadena la información del objeto de la clase
-     * Cliente
+     * Muestra en forma de cadena la información del objeto tipo Cliente
      *
      * @return la información del objeto de la clase Cliente como una cadena
      */
@@ -78,7 +83,7 @@ public class Cliente extends Base {
     /**
      * Implementa el método abstracto de Base
      *
-     * @return el mismo objeto de Cliente
+     * @return una copia del objeto tipo Cliente
      */
     @Override
     public Base copy() {
